@@ -1,70 +1,183 @@
-# Getting Started with Create React App
+# Kiwikey
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A responsive and feature-rich typing tutor application built with React. Enhance your typing skills by practicing with various prompts categorized by difficulty levels. Track your performance in real-time and monitor your progress over time.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Features](#features)
+- [Demo](#demo)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Multiple Prompts with Difficulty Levels**: Choose from a variety of prompts categorized as Easy, Medium, and Hard.
+- **Real-Time Statistics**: Monitor your typing speed (WPM & CPM), accuracy, typos, and elapsed time as you type.
+- **Prompt Selection**: Easily select different prompts to practice your typing skills.
+- **Completion Tracking**: Completed prompts are saved to local storage, preventing re-selection and allowing you to track your progress.
+- **Responsive Design**: Optimized for various screen sizes, ensuring a seamless experience across devices.
+- **Fullscreen Mode**: Toggle fullscreen to minimize distractions and focus solely on your typing practice.
+- **Accessibility Enhancements**: ARIA labels and keyboard navigability ensure the application is accessible to all users.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Demo
 
-### `npm test`
+![Typing Tutor Demo](./screenshots/demo.gif)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+*Note: Replace the above placeholder with an actual screenshot or GIF of your application.*
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Follow these instructions to set up and run the project locally.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Ensure you have **Node.js** and **npm** installed on your machine. You can download them from [Node.js Official Website](https://nodejs.org/).
 
-### `npm run eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Clone the Repository**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   git clone https://github.com/your-username/react-typing-tutor.git
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. **Navigate to the Project Directory**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```bash
+   cd react-typing-tutor
+   ```
 
-## Learn More
+3. **Install Dependencies**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```bash
+   npm install
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. **Start the Development Server**
 
-### Code Splitting
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   The application will run at `http://localhost:3000` by default.
 
-### Analyzing the Bundle Size
+## Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. **Select a Prompt**
 
-### Making a Progressive Web App
+   - Choose a prompt from the **Prompt Selector** categorized by difficulty levels.
+   - Completed prompts are marked and cannot be re-selected to encourage progression.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+2. **Start Typing**
 
-### Advanced Configuration
+   - Click on the typing area to focus and begin typing the displayed prompt.
+   - Real-time statistics will update as you type, including WPM, CPM, accuracy, typos, and elapsed time.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+3. **Fullscreen Mode**
 
-### Deployment
+   - Click the **Fullscreen** button to toggle fullscreen mode for an immersive typing experience.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+4. **Interrupting a Session**
 
-### `npm run build` fails to minify
+   - Press `Ctrl-C` at any time to interrupt the current typing session. The status will update accordingly.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+5. **Completion Tracking**
+
+   - Once you complete a prompt accurately, it will be marked as **Completed** and saved to local storage.
+   - Completed prompts remain marked even after refreshing the page, allowing you to track your progress over time.
+
+## Project Structure
+
+```
+react-typing-tutor/
+├── src/
+│   ├── components/
+│   │   ├── PromptSelector.js
+│   │   └── TypingInput.js
+│   ├── contexts/
+│   │   └── TypingContext.js
+│   ├── App.js
+│   ├── index.js
+│   └── index.css
+├── public/
+│   └── index.html
+├── package.json
+├── README.md
+└── .gitignore
+```
+
+- **components/**: Contains all React components used in the application.
+  - **PromptSelector.js**: Component for selecting typing prompts.
+  - **TypingInput.js**: Core typing component that handles user input and displays statistics.
+- **contexts/**: Contains Context API setup for state management.
+  - **TypingContext.js**: Manages global state, including prompts, current prompt, user input, statistics, and completed prompts.
+- **App.js**: Main application component that integrates all other components.
+- **index.js**: Entry point of the React application.
+- **index.css**: Global CSS styles.
+
+## Technologies Used
+
+- **React**: JavaScript library for building user interfaces.
+- **Styled-Components**: For writing CSS in JavaScript and managing component-level styles.
+- **React Icons**: For incorporating scalable vector icons.
+- **Local Storage**: To persist completed prompts across sessions.
+
+## Contributing
+
+Contributions are welcome! Follow these steps to contribute:
+
+1. **Fork the Repository**
+
+   Click the **Fork** button at the top-right corner of the repository page to create a copy of this project under your GitHub account.
+
+2. **Clone the Forked Repository**
+
+   ```bash
+   git clone https://github.com/your-username/react-typing-tutor.git
+   ```
+
+3. **Navigate to the Project Directory**
+
+   ```bash
+   cd react-typing-tutor
+   ```
+
+4. **Create a New Branch**
+
+   ```bash
+   git checkout -b feature/YourFeatureName
+   ```
+
+5. **Make Your Changes**
+
+   Implement your feature or fix.
+
+6. **Commit Your Changes**
+
+   ```bash
+   git commit -m "Add feature: YourFeatureName"
+   ```
+
+7. **Push to the Branch**
+
+   ```bash
+   git push origin feature/YourFeatureName
+   ```
+
+8. **Create a Pull Request**
+
+   Go to the original repository and click **Compare & pull request**. Provide a clear description of your changes and submit the pull request.
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+---
+
+*Feel free to customize this README to better fit your project's specifics, add more sections as needed, and include screenshots or GIFs to showcase your application.*
