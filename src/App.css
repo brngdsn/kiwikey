@@ -1,3 +1,22 @@
+html {
+  background-color: #282c34;
+}
+
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+h3 {
+  margin: 0 0 10px 0;
+}
+
+button {
+  font-family: inherit;
+}
+
 .App {
   text-align: center;
 }
