@@ -44,13 +44,13 @@ Ensure you have **Node.js** and **npm** installed on your machine. You can downl
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-username/react-typing-tutor.git
+   git clone https://github.com/your-username/kiwikey.git
    ```
 
 2. **Navigate to the Project Directory**
 
    ```bash
-   cd react-typing-tutor
+   cd kiwikey
    ```
 
 3. **Install Dependencies**
@@ -95,7 +95,7 @@ Ensure you have **Node.js** and **npm** installed on your machine. You can downl
 ## Project Structure
 
 ```
-react-typing-tutor/
+kiwikey/
 ├── src/
 │   ├── components/
 │   │   ├── PromptSelector.js
@@ -139,13 +139,13 @@ Contributions are welcome! Follow these steps to contribute:
 2. **Clone the Forked Repository**
 
    ```bash
-   git clone https://github.com/your-username/react-typing-tutor.git
+   git clone https://github.com/your-username/kiwikey.git
    ```
 
 3. **Navigate to the Project Directory**
 
    ```bash
-   cd react-typing-tutor
+   cd kiwikey
    ```
 
 4. **Create a New Branch**
