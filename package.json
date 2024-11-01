@@ -4,7 +4,8 @@
   "private": true,
   "homepage": "https://brngdsn.github.io/qwert",
   "repository": {
-    "url": "git@github.com:brngdsn/qwert.git"
+    "type": "git",
+    "url": "git+https://github.com/brngdsn/qwert.git"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
