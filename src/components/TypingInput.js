@@ -25,9 +25,16 @@ const Container = styled.div.attrs(() => ({
   overflow: auto;
   text-align: left; /* Align text to the left */
   outline: none; /* Remove default outline */
+  // border-radius: 8px;
+  min-height: 200px;
 
-  &:focus {
-    outline: 2px solid #61dafb; /* Custom outline on focus */
+  // &:focus {
+  //   outline: 2px solid #61dafb; /* Custom outline on focus */
+  // }
+
+  @media (max-width: 600px) {
+    padding: 15px;
+    font-size: 0.9em;
   }
 `;
 
@@ -36,6 +43,10 @@ const Prompt = styled.div`
   word-wrap: break-word;
   font-size: 1.2em;
   line-height: 1.5;
+
+  @media (max-width: 600px) {
+    font-size: 1em;
+  }
 `;
 
 const TypedText = styled.span`
@@ -67,15 +78,23 @@ const StatsContainer = styled.div`
   flex-wrap: wrap;
   gap: 15px;
   color: #636363;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 
 const StatItem = styled.div`
   /* flex: 1 1 150px; */ /* Commented out as per the user code */
+  @media (max-width: 600px) {
+    font-size: 0.9em;
+  }
 `;
 
 const FullscreenButton = styled.button`
   position: absolute;
-  opacity: 0.15;
+  opacity: .15;
   top: 20px;
   right: 20px;
   background-color: #61dafb;
@@ -88,6 +107,13 @@ const FullscreenButton = styled.button`
 
   &:hover {
     background-color: #21a1f1;
+  }
+
+  @media (max-width: 600px) {
+    top: 15px;
+    right: 15px;
+    padding: 6px 10px;
+    font-size: 0.8em;
   }
 `;
 
@@ -151,7 +177,7 @@ const TypingInput = () => {
     if (status === 'completed' || status === 'interrupted') return;
 
     if (e.ctrlKey && e.key === 'c') {
-      dispatch({ type: 'INTERUPT' });
+      dispatch({ type: 'INTERRUPT' });
       return;
     }
 
@@ -210,7 +236,7 @@ const TypingInput = () => {
       intervalRef.current = setInterval(() => {
         const newStats = calculateStats(userInput, currentPrompt.text, startTime);
         dispatch({ type: 'UPDATE_STATS', payload: newStats });
-      }, 1); // Update every 1 milliseconds for performance
+      }, 100); // Update every 100 milliseconds for performance
     } else {
       clearInterval(intervalRef.current);
     }
@@ -282,17 +308,18 @@ const TypingInput = () => {
 
   return (
     <Container
+      className="Container"
       ref={containerRef}
       onClick={() => containerRef.current.focus()} // Focus on click
       aria-label="Typing Input Area"
     >
-      <FullscreenButton onClick={toggleFullScreen}>
+      <FullscreenButton onClick={toggleFullScreen} aria-label="Toggle Fullscreen">
         {fullScreen ? <FaWindowMinimize /> : <FaWindowMaximize /> }
       </FullscreenButton>
-      <Prompt>
+      <Prompt className="Prompt">
         {renderPrompt()}
       </Prompt>
-      <StatsContainer>
+      <StatsContainer className="StatsContainer">
         <StatItem>Time: {stats.timeElapsed.toFixed(3)} sec</StatItem>
         <StatItem>WPM: {stats.wpm}</StatItem>
         <StatItem>CPM: {stats.cpm}</StatItem>

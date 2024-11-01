@@ -1,28 +1,32 @@
 import { TypingProvider } from './contexts/TypingContext';
+import NavBar from './components/NavBar';
 import TypingInput from './components/TypingInput';
 import PromptSelector from './components/PromptSelector';
 import styled from 'styled-components';
 import './App.css';
 
-// Styled Components for Layout
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px;
-  background-color: #20232a;
-  min-height: 100vh;
+  padding-top: 4rem; /* Space for the fixed NavBar */
+  padding-bottom: 2rem;
 `;
 
 const Content = styled.div`
   width: 80%;
   max-width: 800px;
+
+  @media (max-width: 600px) {
+    width: 95%;
+  }
 `;
 
 function App() {
   return (
     <div className="App">
       <TypingProvider>
+        <NavBar />
         <AppContainer>
           <Content>
             <PromptSelector />

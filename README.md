@@ -1,4 +1,4 @@
-# Kiwikey
+# Qwert
 
 A responsive and feature-rich typing tutor application built with React. Enhance your typing skills by practicing with various prompts categorized by difficulty levels. Track your performance in real-time and monitor your progress over time.
 
@@ -44,13 +44,13 @@ Ensure you have **Node.js** and **npm** installed on your machine. You can downl
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-username/kiwikey.git
+   git clone https://github.com/your-username/qwert.git
    ```
 
 2. **Navigate to the Project Directory**
 
    ```bash
-   cd kiwikey
+   cd qwert
    ```
 
 3. **Install Dependencies**
@@ -95,7 +95,7 @@ Ensure you have **Node.js** and **npm** installed on your machine. You can downl
 ## Project Structure
 
 ```
-kiwikey/
+qwert/
 ├── src/
 │   ├── components/
 │   │   ├── PromptSelector.js
@@ -139,13 +139,13 @@ Contributions are welcome! Follow these steps to contribute:
 2. **Clone the Forked Repository**
 
    ```bash
-   git clone https://github.com/your-username/kiwikey.git
+   git clone https://github.com/your-username/qwert.git
    ```
 
 3. **Navigate to the Project Directory**
 
    ```bash
-   cd kiwikey
+   cd qwert
    ```
 
 4. **Create a New Branch**
