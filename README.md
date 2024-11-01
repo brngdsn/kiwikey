@@ -29,7 +29,7 @@ A responsive and feature-rich typing tutor application built with React. Enhance
 
 ## Demo
 
-![Typing Tutor Demo](./screenshots/demo.gif)
+[qwert demo](https://brngdsn.github.io/qwert)
 
 *Note: Replace the above placeholder with an actual screenshot or GIF of your application.*
 

@@ -22,7 +22,7 @@ const Container = styled.div.attrs(() => ({
   font-family: 'Courier New', Courier, monospace;
   background-color: #282c34;
   color: #f7f7f7;
-  overflow: auto;
+  // overflow: auto;
   text-align: left; /* Align text to the left */
   outline: none; /* Remove default outline */
   // border-radius: 8px;
@@ -157,9 +157,10 @@ const calculateStats = (userInput, prompt, startTime) => {
 
 const TypingInput = () => {
   const { state, dispatch } = useContext(TypingContext);
-  const { currentPrompt, userInput, startTime, status, stats, completedPrompts } = state;
+  const { currentPrompt, userInput, startTime, status, stats } = state;
   const [fullScreen, setFullScreen] = useState(false);
   const containerRef = useRef(null);
+  const inputRef = useRef(null);
   const intervalRef = useRef(null);
 
   // Handle full-screen toggle
@@ -177,7 +178,7 @@ const TypingInput = () => {
     }
   };
 
-  // Handle input
+  // Handle key down events
   const handleKeyDown = (e) => {
     if (status === 'completed' || status === 'interrupted') return;
 
@@ -221,20 +222,6 @@ const TypingInput = () => {
     }
   };
 
-  // Attach keydown listener to the Container
-  useEffect(() => {
-    const currentContainer = containerRef.current;
-    if (currentContainer) {
-      currentContainer.addEventListener('keydown', handleKeyDown);
-    }
-
-    return () => {
-      if (currentContainer) {
-        currentContainer.removeEventListener('keydown', handleKeyDown);
-      }
-    };
-  }, [userInput, status, startTime, currentPrompt]);
-
   // Handle statistics timer
   useEffect(() => {
     if (status === 'running') {
@@ -252,8 +239,67 @@ const TypingInput = () => {
   // Reset input and stats when currentPrompt changes
   useEffect(() => {
     dispatch({ type: 'RESET' });
-    containerRef.current.focus(); // Auto-focus on new prompt
+    if (inputRef.current) {
+      inputRef.current.value = ''; // Reset input value
+      inputRef.current.focus(); // Auto-focus on new prompt
+    }
   }, [currentPrompt, dispatch]);
+
+  // Helper function to get the rest of the word
+  const getRestOfWord = (characters, currentIndex, inputLength) => {
+    let rest = '';
+    for (let j = currentIndex + 1; j < characters.length; j++) {
+      const char = characters[j];
+      if (char === ' ' || char === '\n') {
+        break;
+      }
+      if (j >= inputLength) {
+        rest += char;
+      }
+    }
+    return rest;
+  };
+
+// Helper function to get word boundaries
+  const getWordBoundaries = (characters) => {
+    const boundaries = [];
+    let wordStart = null;
+    for (let i = 0; i <= characters.length; i++) {
+      const char = characters[i];
+      if (char === ' ' || char === '\n' || i === characters.length) {
+        if (wordStart !== null) {
+          boundaries.push({ start: wordStart, end: i - 1 });
+          wordStart = null;
+        }
+      } else {
+        if (wordStart === null) {
+          wordStart = i;
+        }
+      }
+    }
+    return boundaries;
+  };
+
+  // Helper function to find the word at a given index
+  const getWordAtIndex = (index, wordBoundaries) => {
+    for (const boundary of wordBoundaries) {
+      if (index >= boundary.start && index <= boundary.end) {
+        return boundary;
+      }
+    }
+    return null;
+  };
+
+  // Helper function to check if a word is fully typed
+  const isWordFullyTyped = (word, inputChars, characters) => {
+    if (!word) return false;
+    for (let j = word.start; j <= word.end; j++) {
+      if (inputChars[j] !== characters[j]) {
+        return false;
+      }
+    }
+    return inputChars.length > word.end;
+  };
 
   // Function to render prompt with colored text and cursor at the correct position
   const renderPrompt = () => {
@@ -262,50 +308,98 @@ const TypingInput = () => {
     const inputChars = userInput.split('');
 
     const elements = [];
+    const wordBoundaries = getWordBoundaries(characters);
 
     for (let i = 0; i < characters.length; i++) {
       const char = characters[i];
-      let displayChar = char === '\n' ? (<>
-        <FaLevelDownAlt style={{
-          opacity: '0.25',
-          top: '0.25rem',
-          position: 'relative',
-          rotate: '90deg',
-          marginRight: '0.5rem',
-          marginLeft: '0.25rem'
-        }} key={`icon-${i}`} />
-        <br />
-      </>) : char;
+      let displayChar =
+        char === '\n' ? (
+          <>
+            <FaLevelDownAlt
+              style={{
+                opacity: '0.15',
+                top: '0.75rem',
+                position: 'relative',
+                transform: 'rotate(90deg)',
+                marginRight: '0.5rem',
+                marginLeft: '0.25rem',
+              }}
+              key={`icon-${i}`}
+            />
+            <br />
+          </>
+        ) : (
+          char
+        );
 
       if (i < inputLength) {
         // Correctly typed character
         if (inputChars[i] === char) {
-          elements.push(<TypedText key={i}>{displayChar}</TypedText>);
+          const word = getWordAtIndex(i, wordBoundaries);
+          const wordFullyTyped = isWordFullyTyped(word, inputChars, characters);
+          if (!wordFullyTyped) {
+            const restOfWord = getRestOfWord(characters, i, inputLength);
+            elements.push(
+              <TypedText className="TypedText not-fully-typed" key={i}>
+                {displayChar}
+                {restOfWord && (
+                  <TypedText
+                    className="TypedText nested-placeholder"
+                    style={{
+                      color: 'yellow',
+                      opacity: 0.0,
+                      marginRight: `-${restOfWord.length}ch`
+                    }}
+                    key={`rest-${i}`}
+                  >
+                    {restOfWord}
+                  </TypedText>
+                )}
+              </TypedText>
+            );
+          } else {
+            // Word fully typed, do not include restOfWord
+            elements.push(
+              <TypedText className="TypedText fully-typed" key={i}>
+                {displayChar}
+              </TypedText>
+            );
+          }
         } else {
           // Mistyped character
-          elements.push(<ErrorText key={i}>{displayChar}</ErrorText>);
+          elements.push(
+            <ErrorText className="ErrorText" key={i}>{displayChar}</ErrorText>
+          );
         }
       } else {
         // Remaining characters
-        elements.push(<RemainingText key={i}>{displayChar}</RemainingText>);
+        elements.push(
+          <RemainingText className="RemainingText" key={i}>{displayChar}</RemainingText>
+        );
       }
 
       // Insert cursor after the last typed character
       if (i === inputLength - 1) {
         if (status !== 'completed' && status !== 'interrupted') {
-          elements.push(<Cursor key="cursor" />);
+          elements.push(<Cursor className="Cursor" key="cursor" />);
         }
       }
     }
 
     // If user has typed all characters, append cursor at the end if not completed
-    if (inputLength === characters.length && (status === 'idle' || status === 'running')) {
-      elements.push(<Cursor key="cursor" />);
+    if (
+      inputLength === characters.length &&
+      (status === 'idle' || status === 'running')
+    ) {
+      elements.push(<Cursor className="Cursor" key="cursor-end" />);
     }
 
     // If user hasn't typed anything, place cursor at the start
-    if (inputLength === 0 && (status === 'idle' || status === 'running')) {
-      elements.unshift(<Cursor key="cursor" />);
+    if (
+      inputLength === 0 &&
+      (status === 'idle' || status === 'running')
+    ) {
+      elements.unshift(<Cursor className="Cursor" key="cursor-start" />);
     }
 
     return elements;
@@ -315,15 +409,32 @@ const TypingInput = () => {
     <Container
       className="Container"
       ref={containerRef}
-      onClick={() => containerRef.current.focus()} // Focus on click
+      onClick={() => inputRef.current.focus()}
       aria-label="Typing Input Area"
+      tabIndex={0}
+      style={{ position: 'relative' }}
     >
-      {/* <FullscreenButton onClick={toggleFullScreen} aria-label="Toggle Fullscreen">
-        {fullScreen ? <FaWindowMinimize /> : <FaWindowMaximize /> }
-      </FullscreenButton> */}
-      <Prompt className="Prompt">
-        {renderPrompt()}
-      </Prompt>
+      {/* Hidden input to capture keyboard events on mobile */}
+      <input
+        ref={inputRef}
+        type="text"
+        style={{
+          position: 'absolute',
+          opacity: 0,
+          height: '100%',
+          width: '100%',
+          top: 0,
+          left: 0,
+          zIndex: -1,
+        }}
+        onKeyDown={handleKeyDown}
+        autoFocus
+        inputMode="text"
+        aria-hidden="true"
+      />
+
+      <Prompt className="Prompt">{renderPrompt()}</Prompt>
+
       <StatsContainer className="StatsContainer">
         <StatItem>Time: {stats.timeElapsed.toFixed(3)} sec</StatItem>
         <StatItem>WPM: {stats.wpm}</StatItem>
@@ -331,7 +442,10 @@ const TypingInput = () => {
         <StatItem>Accuracy: {stats.accuracy}%</StatItem>
         <StatItem>Typos: {stats.typos}</StatItem>
         {(status === 'completed' || status === 'interrupted') && (
-          <StatItem>Status: {status === 'completed' ? 'Completed' : 'Interrupted'}</StatItem>
+          <StatItem>
+            Status:{' '}
+            {status === 'completed' ? 'Completed' : 'Interrupted'}
+          </StatItem>
         )}
       </StatsContainer>
     </Container>
