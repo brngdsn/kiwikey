@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/qwert/static/css/main.cf928a20.css",
+    "main.js": "/qwert/static/js/main.804f8303.js",
+    "static/js/453.37b60dee.chunk.js": "/qwert/static/js/453.37b60dee.chunk.js",
+    "index.html": "/qwert/index.html",
+    "main.cf928a20.css.map": "/qwert/static/css/main.cf928a20.css.map",
+    "main.804f8303.js.map": "/qwert/static/js/main.804f8303.js.map",
+    "453.37b60dee.chunk.js.map": "/qwert/static/js/453.37b60dee.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cf928a20.css",
+    "static/js/main.804f8303.js"
+  ]
+}
