@@ -2,6 +2,8 @@
 
 A responsive and feature-rich typing tutor application built with React. Enhance your typing skills by practicing with various prompts categorized by difficulty levels. Track your performance in real-time and monitor your progress over time.
 
+![qwert](./public/qwert.gif)
+
 ## Table of Contents
 
 - [Features](#features)

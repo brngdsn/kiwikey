@@ -41,11 +41,11 @@ const Container = styled.div.attrs(() => ({
 const Prompt = styled.div`
   white-space: pre-wrap;
   word-wrap: break-word;
-  font-size: 1.2em;
+  font-size: 3.5em;
   line-height: 1.5;
 
   @media (max-width: 600px) {
-    font-size: 1em;
+    font-size: 2.5em;
   }
 `;
 
@@ -63,12 +63,17 @@ const ErrorText = styled.span`
 
 const Cursor = styled.span`
   display: inline-block;
-  width: 2px;
+  width: 0.1rem;
   background-color: #61dafb; /* Highlight color for cursor */
   animation: ${blink} 1s step-start infinite;
-  margin-left: -1px;
-  height: 1.2em;
-  vertical-align: bottom;
+  margin-left: -0.1rem;
+  height: 4rem;
+  vertical-align: top;
+  margin-top: 0.5rem;
+
+  @media (max-width: 600px) {
+    height: 2rem;
+  }
 `;
 
 const StatsContainer = styled.div`
@@ -313,9 +318,9 @@ const TypingInput = () => {
       onClick={() => containerRef.current.focus()} // Focus on click
       aria-label="Typing Input Area"
     >
-      <FullscreenButton onClick={toggleFullScreen} aria-label="Toggle Fullscreen">
+      {/* <FullscreenButton onClick={toggleFullScreen} aria-label="Toggle Fullscreen">
         {fullScreen ? <FaWindowMinimize /> : <FaWindowMaximize /> }
-      </FullscreenButton>
+      </FullscreenButton> */}
       <Prompt className="Prompt">
         {renderPrompt()}
       </Prompt>

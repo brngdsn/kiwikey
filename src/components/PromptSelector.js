@@ -21,6 +21,8 @@ const Header = styled.div`
   @media (max-width: 600px) {
     display: flex;
     cursor: pointer;
+    padding: 0.5rem;
+    background-color: #20232a;
   }
 `;
 
@@ -75,16 +77,26 @@ const DifficultyBadge = styled.span`
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 0.8em;
-  margin-right: 8px;
 `;
 
-const StatusBadge = styled.span`
-  background-color: ${(props) =>
-    props.$completed ? '#4caf50' : '#f44336'};
-  color: #fff;
+const CompletedBadge = styled.span`
+  background-color: #6aff70;
+  color: #45a748;
+
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 0.8em;
+  margin-left: 8px;
+`;
+
+const IsCurrentBadge = styled.span`
+  background-color: #ecff7c;
+  color: #96a53d;
+
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  margin-left: 8px;
 `;
 
 const PromptSelector = () => {
@@ -123,14 +135,14 @@ const PromptSelector = () => {
             <div>
               <DifficultyBadge>{prompt.difficulty}</DifficultyBadge>
               {completedPrompts.includes(prompt.id) && (
-                <StatusBadge $completed>
+                <CompletedBadge>
                   Completed
-                </StatusBadge>
+                </CompletedBadge>
               )}
               {prompt.id === currentPrompt.id && (
-                <StatusBadge>
+                <IsCurrentBadge>
                   Current
-                </StatusBadge>
+                </IsCurrentBadge>
               )}
             </div>
           </PromptItem>

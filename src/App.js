@@ -14,11 +14,11 @@ const AppContainer = styled.div`
 `;
 
 const Content = styled.div`
-  width: 80%;
-  max-width: 800px;
+  // width: 80%;
+  max-width: 80vw;
 
   @media (max-width: 600px) {
-    width: 95%;
+    width: 95vw;
   }
 `;
 

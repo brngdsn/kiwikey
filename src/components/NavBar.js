@@ -18,8 +18,7 @@ const glow = keyframes`
 
 // Styled Components
 const Nav = styled.nav`
-  width: 100%;
-  padding: 10px 20px;
+  width: 100vw;
   background: rgba(40, 44, 52, 0.8); /* Semi-transparent */
   display: flex;
   justify-content: space-between;
@@ -30,9 +29,9 @@ const Nav = styled.nav`
   z-index: 1000;
 
   /* Responsive adjustments */
-  @media (max-width: 600px) {
-    flex-direction: column;
-  }
+//   @media (max-width: 600px) {
+//     flex-direction: column;
+//   }
 `;
 
 const Logo = styled.div`
@@ -42,6 +41,7 @@ const Logo = styled.div`
   font-size: 1.5em;
   cursor: pointer;
   animation: ${glow} 2s infinite;
+  padding: 0.66rem 1rem 0.66rem 1rem;
 
   &:hover {
     color: #21a1f1;
@@ -55,6 +55,7 @@ const Logo = styled.div`
 const NavLinks = styled.div`
   display: flex;
   align-items: center;
+  padding: 0.66rem 1rem 0.66rem 1rem;
 
   a {
     color: #f7f7f7;
@@ -75,27 +76,27 @@ const NavLinks = styled.div`
   }
 
   /* Responsive adjustments */
-  @media (max-width: 600px) {
-    margin-top: 10px;
-    flex-direction: column;
+//   @media (max-width: 600px) {
+//     margin-top: 10px;
+//     flex-direction: column;
 
-    a {
-      margin-left: 0;
-      margin-bottom: 10px;
-    }
-  }
+//     a {
+//       margin-left: 0;
+//       margin-bottom: 10px;
+//     }
+//   }
 `;
 
 const NavBar = () => {
   return (
-    <Nav className="nav">
-      <Logo>
+    <Nav className="Nav">
+      <Logo className="Logo">
         <FaKeyboard />
         <span>qwert</span>
       </Logo>
-      <NavLinks>
+      <NavLinks className="NavLinks">
         <a
-          href="https://github.com/your-username/your-repo" // Replace with your GitHub repo URL
+          href="https://github.com/brngdsn/qwert" // Replace with your GitHub repo URL
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub Repository"
@@ -104,7 +105,7 @@ const NavBar = () => {
           GitHub
         </a>
         <a
-          href="https://github.com/your-username/your-repo/blob/main/README.md" // Replace with your README.md URL
+          href="https://github.com/brngdsn/qwert/blob/master/README.md" // Replace with your README.md URL
           target="_blank"
           rel="noopener noreferrer"
           aria-label="README.md"
